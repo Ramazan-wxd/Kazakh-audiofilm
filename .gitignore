@@ -1,0 +1,18 @@
+.env
+.venv/
+__pycache__/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+*.egg-info/
+
+# Local processing artifacts and models may contain copyrighted source material.
+.ai-cinema/
+models/
+eval/local/
+*.mp4
+*.wav
+*.mkv
+*.mov
+*.avi
+

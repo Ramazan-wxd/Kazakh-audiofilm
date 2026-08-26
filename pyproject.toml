@@ -1,0 +1,54 @@
+[build-system]
+requires = ["hatchling>=1.26"]
+build-backend = "hatchling.build"
+
+[project]
+name = "ai-cinema"
+version = "0.1.0"
+description = "A small research pipeline for Kazakh audio descriptions."
+readme = "README.md"
+requires-python = ">=3.12,<3.14"
+dependencies = [
+  "azure-cognitiveservices-speech>=1.41",
+  "faster-whisper>=1.2",
+  "google-genai>=1.0",
+  "pydantic>=2.10",
+  "python-dotenv>=1.0",
+  "typer>=0.15",
+]
+
+[project.optional-dependencies]
+dev = [
+  "mypy>=1.15",
+  "pytest>=8.3",
+  "ruff>=0.9",
+]
+
+[project.scripts]
+ai-cinema = "ai_cinema.cli:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/ai_cinema"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+markers = [
+  "live: requires explicit credentials and a locally supplied authorized video",
+]
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]
+
+[tool.mypy]
+python_version = "3.12"
+strict = true
+files = ["src"]
+exclude = ["tests"]
+
+[[tool.mypy.overrides]]
+module = ["azure.*", "faster_whisper", "google.*", "soundfile"]
+ignore_missing_imports = true
